@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tugas Function</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #eef2f3;
+            text-align: center;
+        }
+        .container, .ktp {
+            width: 320px;
+            padding: 20px;
+            margin: 20px auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 4px 4px 15px rgba(0, 0, 0, 0.2);
+            text-align: left;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        .ktp {
+            border: 2px solid black;
+            font-size: 14px;
+        }
+        .ktp p {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <h2>Hitung Diskon</h2>
+    <div class="container">
+        <label>Harga Produk: </label><input type="number" id="harga"><br><br>
+        <label>Diskon (%): </label><input type="number" id="diskon"><br><br>
+        <button onclick="hitungDiskon()">Hitung</button>
+        <p id="hasilDiskon"></p>
+    </div>
+
+    <h2>Konversi Suhu</h2>
+    <div class="container">
+        <label>Masukkan Suhu: </label><input type="number" id="suhu"><br><br>
+        <label>Dari: </label>
+        <select id="dari">
+            <option value="C">Celsius</option>
+            <option value="F">Fahrenheit</option>
+            <option value="R">Reamur</option>
+            <option value="K">Kelvin</option>
+        </select>
+        <button onclick="konversiSuhu()">Konversi</button>
+        <p id="hasilSuhu"></p>
+    </div>
+
+    <h2>Kalkulator</h2>
+    <div class="container">
+        <input type="number" id="angka1"> 
+        <select id="operator">
+            <option value="+">+</option>
+            <option value="-">-</option>
+            <option value="*">*</option>
+            <option value="/">/</option>
+        </select>
+        <input type="number" id="angka2"> 
+        <button onclick="hitung()">Hitung</button>
+        <p id="hasilKalkulator"></p>
+    </div>
+
+    <h2>KTP Template</h2>
+    <div class="ktp">
+        <p><b>NIK:</b> 1234567890123456</p>
+        <p><b>Nama:</b> Jafar Siddiq</p>
+        <p><b>TTL:</b> Cirebon, 8 April 2009</p>
+        <p><b>Alamat:</b> Jl. TandaBarat No.35</p>
+    </div>
+
+    <script>
+        function hitungDiskon() {
+            let harga = parseFloat(document.getElementById("harga").value) || 0;
+            let diskon = parseFloat(document.getElementById("diskon").value) || 0;
+            let jumlahDiskon = (harga * diskon) / 100;
+            let totalBayar = harga - jumlahDiskon;
+            document.getElementById("hasilDiskon").innerHTML = `Diskon: Rp${jumlahDiskon.toFixed(2)}, Bayar: Rp${totalBayar.toFixed(2)}`;
+        }
+
+        function konversiSuhu() {
+            let suhu = parseFloat(document.getElementById("suhu").value) || 0;
+            let dari = document.getElementById("dari").value;
+            let hasil = "";
+
+            switch (dari) {
+                case "C":
+                    hasil = `F: ${(suhu * 9/5 + 32).toFixed(2)}, R: ${(suhu * 4/5).toFixed(2)}, K: ${(suhu + 273.15).toFixed(2)}`;
+                    break;
+                case "F":
+                    hasil = `C: ${((suhu - 32) * 5/9).toFixed(2)}, R: ${((suhu - 32) * 4/9).toFixed(2)}, K: ${((suhu - 32) * 5/9 + 273.15).toFixed(2)}`;
+                    break;
+                case "R":
+                    hasil = `C: ${(suhu * 5/4).toFixed(2)}, F: ${(suhu * 9/4 + 32).toFixed(2)}, K: ${(suhu * 5/4 + 273.15).toFixed(2)}`;
+                    break;
+                case "K":
+                    hasil = `C: ${(suhu - 273.15).toFixed(2)}, F: ${((suhu - 273.15) * 9/5 + 32).toFixed(2)}, R: ${((suhu - 273.15) * 4/5).toFixed(2)}`;
+                    break;
+            }
+            document.getElementById("hasilSuhu").innerHTML = hasil;
+        }
+
+        function hitung() {
+            let angka1 = parseFloat(document.getElementById("angka1").value) || 0;
+            let angka2 = parseFloat(document.getElementById("angka2").value) || 0;
+            let operator = document.getElementById("operator").value;
+            let hasil = 0;
+
+            switch (operator) {
+                case "+": hasil = angka1 + angka2; break;
+                case "-": hasil = angka1 - angka2; break;
+                case "*": hasil = angka1 * angka2; break;
+                case "/": hasil = angka2 !== 0 ? angka1 / angka2 : "Error: Pembagian dengan nol"; break;
+            }
+            document.getElementById("hasilKalkulator").innerHTML = `Hasil: ${hasil}`;
+        }
+    </script>
+</body>
+</html>
